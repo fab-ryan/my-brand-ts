@@ -1,0 +1,11 @@
+{
+  "name": "my-brand",
+  "version": "1.0.1",
+  "description": "the first one was iin js this is TS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fabrice",
+  "license": "ISC"
+}
