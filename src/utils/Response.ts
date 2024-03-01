@@ -3,7 +3,7 @@ import { Response } from 'express';
 interface IResponse<T> {
   success: boolean;
   message: string;
-  data: T;
+  data?: T;
   statusCode?: number;
 }
 
@@ -22,15 +22,16 @@ export const successResponse = <T>(
   res.status(statusCode).json(response);
 };
 
-export const errorResponse = (
+export const errorResponse = <T>(
   res: Response,
+  data?: T,
   message = 'Internal Server Error',
   statusCode = 500,
 ): void => {
-  const response: IResponse<null> = {
+  const response: IResponse<T> = {
     success: false,
     message,
-    data: null,
+    data,
     statusCode,
   };
   res.status(statusCode).json(response);
