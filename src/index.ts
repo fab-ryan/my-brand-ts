@@ -4,9 +4,14 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import { loggerMiddleware } from './middlewares';
 import router from './routers';
-const app: Express = express();
+import passport from 'passport';
+import { configurePassport } from './config';
 
+const app: Express = express();
 dotenv.config();
+
+app.use(passport.initialize());
+configurePassport(passport);
 
 app.use(helmet());
 app.use(cors());
