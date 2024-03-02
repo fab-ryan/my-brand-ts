@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const blogSchema = z.object({
-  body: z.object({
     title: z
       .string({
         required_error: 'Title is required',
@@ -24,5 +23,4 @@ export const blogSchema = z.object({
       .min(10, {
         message: 'Preview must be at least 10 characters long',
       }),
-  }),
 });

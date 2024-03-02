@@ -24,7 +24,7 @@ export const successResponse = <T>(
 
 export const errorResponse = <T>(
   res: Response,
-  data?: T,
+  data?: T ,
   message = 'Internal Server Error',
   statusCode = 500,
 ): void => {
@@ -34,5 +34,7 @@ export const errorResponse = <T>(
     data,
     statusCode,
   };
+
+  
   res.status(statusCode).json(response);
 };

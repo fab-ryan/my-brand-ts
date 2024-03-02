@@ -1,33 +1,26 @@
+import { IModalUser } from '../types';
 import { Schema, model } from 'mongoose';
 
-import { IModalBlog } from '../types';
 
-const BlogSchema = new Schema<IModalBlog>({
-  slug: {
+const UserSchema = new Schema<IModalUser>({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
     unique: true,
   },
-  title: {
+  password: {
     type: String,
     required: true,
   },
-  status: {
-    type: Boolean,
-    required: true,
-    default: true,
-  },
-  preview: {
+  role: {
     type: String,
     required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
+    enum: ['admin', 'user'],
+    default: 'user',
   },
   createdAt: {
     type: Date,
@@ -40,7 +33,13 @@ const BlogSchema = new Schema<IModalBlog>({
     default: Date.now,
   },
 });
+type Payload = {
+  id: string;
+  email: string;
+};
 
-const Blog = model<IModalBlog>('Blog', BlogSchema);
 
-export { Blog as BlogModel };
+
+const User = model<IModalUser>('User', UserSchema);
+
+export { User as UserModel };
