@@ -3,10 +3,28 @@ import { successResponse, errorResponse } from '../utils';
 import BlogRouter from './blogRouter';
 import UserRouter from './userRouter';
 import AuthRouter from './authRouter';
+import QueryRouter from './queryRouter';
+import CommentRouter from './commentRouter';
+import LikeRouter from './likesRouter';
+import CategoryRouter from './categoryRouter';
+import ProjectRouter from './projectRouter';
+import EducationRouter from './educationRouter';
+import SkillRouter from './skillsRouter';
 
 const router = Router();
 
-const routes: Router[] = [BlogRouter, UserRouter, AuthRouter];
+const routes: Router[] = [
+  BlogRouter,
+  UserRouter,
+  AuthRouter,
+  QueryRouter,
+  CommentRouter,
+  LikeRouter,
+  CategoryRouter,
+  ProjectRouter,
+  EducationRouter,
+  SkillRouter,
+];
 
 router.use('/api', routes);
 
