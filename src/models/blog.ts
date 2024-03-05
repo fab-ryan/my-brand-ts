@@ -39,6 +39,18 @@ const BlogSchema = new Schema<IModalBlog>({
     required: false,
     default: Date.now,
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Likes',
+    },
+  ],
 });
 
 const Blog = model<IModalBlog>('Blog', BlogSchema);

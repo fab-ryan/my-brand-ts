@@ -6,6 +6,8 @@ import { loggerMiddleware } from './middlewares';
 import router from './routers';
 import passport from 'passport';
 import { configurePassport } from './config';
+import swaggerUi from 'swagger-ui-express';
+import swaggerOutput from './swagger.json';
 
 const app: Express = express();
 dotenv.config();
@@ -18,6 +20,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use(loggerMiddleware);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 app.use(router);
 export { app };
