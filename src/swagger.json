@@ -1,0 +1,1497 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "REST API for Swagger Documentation",
+    "version": "1.0.0",
+    "contact": {
+      "name": "NDACYAYISENGA Fabrice",
+      "email": "royalfabrice1234@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5400/api",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.example.com",
+      "description": "Production server"
+    }
+  ],
+
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Auth",
+      "description": "API for authentication"
+    }
+  ],
+
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "message": "All users fetched successfully",
+            "success": true,
+            "data": "users",
+            "statusCode": 200
+          }
+        },
+
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "message": "User created successfully",
+            "success": true,
+            "data": "user",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "User updated successfully",
+            "success": true,
+            "data": "user",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "User not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete a user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "User deleted successfully",
+            "success": true,
+            "data": "user",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "User not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "message": "User logged in successfully",
+            "success": true,
+            "data": "token",
+            "statusCode": 200
+          },
+          "401": {
+            "message": "Invalid credentials",
+            "success": false,
+            "data": null,
+            "statusCode": 401
+          }
+        }
+      }
+    },
+    "/blogs": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Get all blogs",
+        "responses": {
+          "200": {
+            "message": "All blogs fetched successfully",
+            "success": true,
+            "data": "blogs",
+            "statusCode": 200
+          }
+        }
+      },
+      "post": {
+        "tags": ["Blogs"],
+        "summary": "Create a new blog",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Blog"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Blog created successfully",
+            "success": true,
+            "data": "blog",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/admin/blogs": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Get all blogs",
+        "responses": {
+          "200": {
+            "message": "All blogs fetched successfully",
+            "success": true,
+            "data": "blogs",
+            "statusCode": 200
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/blogs/{slug}": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Get a blog",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Blog fetched successfully",
+            "success": true,
+            "data": "blog",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "put": {
+        "tags": ["Blogs"],
+        "summary": "Update a blog",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Blog"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Blog updated successfully",
+            "success": true,
+            "data": "blog",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Blogs"],
+        "summary": "Delete a blog",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Blog deleted successfully",
+            "success": true,
+            "data": "blog",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/blogs/{slug}/comment": {
+      "post": {
+        "tags": ["Comments"],
+        "summary": "Comment on a blog",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Comment added successfully",
+            "success": true,
+            "data": "comment",
+            "statusCode": 201
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get all comments",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "All comments fetched successfully",
+            "success": true,
+            "data": "comments",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "comment/{id}": {
+      "delete": {
+        "tags": ["Comments"],
+        "summary": "Delete a comment",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Comment deleted successfully",
+            "success": true,
+            "data": "comment",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Comment not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Comments"],
+        "summary": "Update a comment",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Comment updated successfully",
+            "success": true,
+            "data": "comment",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Comment not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all categories",
+        "responses": {
+          "200": {
+            "message": "All categories fetched successfully",
+            "success": true,
+            "data": "categories",
+            "statusCode": 200
+          }
+        }
+      },
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Create a new category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categories"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Category created successfully",
+            "success": true,
+            "data": "category",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "tags": ["Categories"],
+        "summary": "Update a category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categories"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Category updated successfully",
+            "success": true,
+            "data": "category",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Category not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete a category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Categories"],
+        "summary": "Update a category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Category status updated successfully",
+            "success": true,
+            "data": "category",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Category not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+   
+    "/blogs/{slug}/like": {
+      "post": {
+        "tags": ["Likes"],
+        "summary": "Like a blog",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Blog liked successfully",
+            "success": true,
+            "data": "like",
+            "statusCode": 201
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+
+      "get": {
+        "tags": ["Likes"],
+        "summary": "Get all likes",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "All likes fetched successfully",
+            "success": true,
+            "data": "likes",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Blog not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/queries": {
+      "get": {
+        "tags": ["Queries"],
+        "summary": "Get all queries",
+        "responses": {
+          "200": {
+            "message": "All queries fetched successfully",
+            "success": true,
+            "data": "queries",
+            "statusCode": 200
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Queries"],
+        "summary": "Create a new query",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "message": "Query created successfully",
+            "success": true,
+            "data": "query",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/queries/{id}": {
+      "get": {
+        "tags": ["Queries"],
+        "summary": "Get a query",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Query fetched successfully",
+            "success": true,
+            "data": "query",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Query not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Queries"],
+        "summary": "Delete a query",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Query deleted successfully",
+            "success": true,
+            "data": "query",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Query not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/skills": {
+      "get": {
+        "tags": ["Skills"],
+        "summary": "Get all skills",
+        "responses": {
+          "200": {
+            "message": "All skills fetched successfully",
+            "success": true,
+            "data": "skills",
+            "statusCode": 200
+          }
+        }
+      },
+      "post": {
+        "tags": ["Skills"],
+        "summary": "Create a new skill",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "percentage": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Skill created successfully",
+            "success": true,
+            "data": "skill",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/skills/{id}": {
+      "get": {
+        "tags": ["Skills"],
+        "summary": "Get a skill",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Skill fetched successfully",
+            "success": true,
+            "data": "skill",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Skill not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Skills"],
+        "summary": "Update a skill",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "percentage": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Skill updated successfully",
+            "success": true,
+            "data": "skill",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Skill not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Skills"],
+        "summary": "Delete a skill",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Skill deleted successfully",
+            "success": true,
+            "data": "skill",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Skill not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "tags": ["Projects"],
+        "summary": "Get all projects",
+        "responses": {
+          "200": {
+            "message": "All projects fetched successfully",
+            "success": true,
+            "data": "projects",
+            "statusCode": 200
+          }
+        }
+      },
+      "post": {
+        "tags": ["Projects"],
+        "summary": "Create a new project",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "required": true
+                  },
+                  "url": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Project created successfully",
+            "success": true,
+            "data": "project",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/projects/{id}": {
+      "get": {
+        "tags": ["Projects"],
+        "summary": "Get a project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Project fetched successfully",
+            "success": true,
+            "data": "project",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Project not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Projects"],
+        "summary": "Update a project",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "required": true
+                  },
+                  "url": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Project updated successfully",
+            "success": true,
+            "data": "project",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Project not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Projects"],
+        "summary": "Delete a project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Project deleted successfully",
+            "success": true,
+            "data": "project",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Project not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    },
+    "/educations": {
+      "get": {
+        "tags": ["Educations"],
+        "summary": "Get all educations",
+        "responses": {
+          "200": {
+            "message": "All educations fetched successfully",
+            "success": true,
+            "data": "educations",
+            "statusCode": 200
+          }
+        }
+      },
+      "post": {
+        "tags": ["Educations"],
+        "summary": "Create a new education",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "institution": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "degree": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "field": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "start": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "end": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "message": "Education created successfully",
+            "success": true,
+            "data": "education",
+            "statusCode": 201
+          }
+        }
+      }
+    },
+    "/educations/{id}": {
+      "get": {
+        "tags": ["Educations"],
+        "summary": "Get an education",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Education fetched successfully",
+            "success": true,
+            "data": "education",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Education not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Educations"],
+        "summary": "Update an education",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "institution": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "degree": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "field": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "start": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "end": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Education updated successfully",
+            "success": true,
+            "data": "education",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Education not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Educations"],
+        "summary": "Delete an education",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "message": "Education deleted successfully",
+            "success": true,
+            "data": "education",
+            "statusCode": 200
+          },
+          "404": {
+            "message": "Education not found",
+            "success": false,
+            "data": null,
+            "statusCode": 404
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Blog": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": true
+          },
+          "content": {
+            "type": "string",
+            "required": true
+          },
+          "image": {
+            "type": "string",
+            "required": true,
+            "format": "binary"
+          },
+          "preview": {
+            "type": "string",
+            "required": true
+          }
+        }
+      },
+      "Categories": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "status": {
+            "type": "boolean",
+            "required": false
+          }
+        }
+      }
+    }
+  }
+}

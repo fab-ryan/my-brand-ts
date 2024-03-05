@@ -6,8 +6,13 @@ import { requestType } from '../types';
 
 const educationRouter = Router();
 
-educationRouter.get('/educations', educationController.getEducation);
 educationRouter.get('/educations', educationController.getEducations);
+educationRouter.get(
+  '/educations/:id',
+  isAuthenticated,
+  isAdmin,
+  educationController.getEducation,
+);
 educationRouter.post(
   '/educations',
   isAuthenticated,

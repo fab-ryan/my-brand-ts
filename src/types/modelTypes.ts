@@ -68,6 +68,7 @@ export interface IModalSkills {
   _id: Types.ObjectId;
   name: string;
   percent: number;
+  status: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

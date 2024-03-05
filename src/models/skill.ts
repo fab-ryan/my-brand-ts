@@ -11,6 +11,10 @@ const SkillSchema: Schema = new Schema<IModalSkills>(
       type: Number,
       required: true,
     },
+    status:{
+      type:Boolean,
+      default:true
+    }
   },
   {
     timestamps: true,

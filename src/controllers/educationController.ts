@@ -13,8 +13,8 @@ interface IEducationBody extends Request {
     institution: string;
     degree: string;
     field: string;
-    startYear: string;
-    endYear: string;
+    start: string;
+    end: string;
     description: string;
   };
 }
@@ -25,9 +25,8 @@ class educationController {
   ): Promise<void> {
     try {
       const status = req.query.status;
-      const educations = status
-        ? await EducationModel.find({ status })
-        : await EducationModel.find();
+      const educations = await EducationModel.find();
+      console.log(status, educations);
       successResponse(res, educations, 'Educations retrieved successfully');
     } catch (error) {
       const errorMessages = (error as Error).message;
