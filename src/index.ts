@@ -8,6 +8,10 @@ import passport from 'passport';
 import { configurePassport } from './config';
 import swaggerUi from 'swagger-ui-express';
 import swaggerOutput from './swagger.json';
+import dbConnection from './database';
+
+dbConnection();
+
 
 const app: Express = express();
 dotenv.config();
@@ -24,4 +28,5 @@ app.use(loggerMiddleware);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 app.use(router);
+
 export { app };

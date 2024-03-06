@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const controllers_1 = require("../controllers");
+const express_1 = require("express");
+const middlewares_1 = require("../middlewares");
+const schemas_1 = require("../schemas");
+const types_1 = require("../types");
+const educationRouter = (0, express_1.Router)();
+educationRouter.get('/educations', controllers_1.educationController.getEducations);
+educationRouter.get('/educations/:id', middlewares_1.isAuthenticated, middlewares_1.isAdmin, controllers_1.educationController.getEducation);
+educationRouter.post('/educations', middlewares_1.isAuthenticated, middlewares_1.isAdmin, (0, middlewares_1.validate)(schemas_1.educationSchema, types_1.requestType.body), controllers_1.educationController.createEducation);
+educationRouter.patch('/educations/:id', middlewares_1.isAuthenticated, middlewares_1.isAdmin, (0, middlewares_1.validate)(schemas_1.educationSchema, types_1.requestType.body), controllers_1.educationController.updateEducation);
+educationRouter.delete('/educations/:id', middlewares_1.isAuthenticated, middlewares_1.isAdmin, controllers_1.educationController.deleteEducation);
+exports.default = educationRouter;

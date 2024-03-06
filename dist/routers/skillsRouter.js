@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const controllers_1 = require("../controllers");
+const express_1 = require("express");
+const middlewares_1 = require("../middlewares");
+const schemas_1 = require("../schemas");
+const types_1 = require("../types");
+const skillRouter = (0, express_1.Router)();
+skillRouter.get('/skills', controllers_1.skillController.getSkills);
+skillRouter.get('/skills/:id', middlewares_1.isAuthenticated, middlewares_1.isAdmin, controllers_1.skillController.getSkill);
+skillRouter.post('/skills', middlewares_1.isAuthenticated, middlewares_1.isAdmin, (0, middlewares_1.validate)(schemas_1.skillSchema, types_1.requestType.body), controllers_1.skillController.createSkill);
+skillRouter.patch('/skills/:id', middlewares_1.isAuthenticated, middlewares_1.isAdmin, (0, middlewares_1.validate)(schemas_1.skillSchema, types_1.requestType.body), controllers_1.skillController.updateSkill);
+skillRouter.delete('/skills/:id', middlewares_1.isAuthenticated, middlewares_1.isAdmin, controllers_1.skillController.deleteSkill);
+exports.default = skillRouter;
