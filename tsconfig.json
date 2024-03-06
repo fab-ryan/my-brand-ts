@@ -103,5 +103,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "src/swagger/swagger_output.json"]
+  "include": ["src/**/*", "src/swagger/swagger_output.json"],
+  "exclude": ["node_modules", "dist"]
 }
