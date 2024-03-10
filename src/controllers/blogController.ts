@@ -30,7 +30,8 @@ class BlogController {
       const blogs = await BlogModel.find();
       successResponse(res, blogs, 'Blogs fetched successfully', 200);
     } catch (error) {
-      const errorMessage = 'Error getting blogs';
+      const errorMessage = (error as Error).message;
+     
       errorResponse(res, null, errorMessage, 500);
     }
   }
@@ -49,8 +50,7 @@ class BlogController {
       });
       successResponse(res, blog, 'Blog created successfully', 201);
     } catch (error) {
-      console.log(error);
-      const errorMessage = 'Error creating blog';
+      const errorMessage =  (error as Error).message;
       errorResponse(res, null, errorMessage, 500);
     }
   }
@@ -67,7 +67,7 @@ class BlogController {
         errorResponse(res, null, 'Blog not found', 404);
       }
     } catch (error) {
-      const errorMessage = 'Error updating blog status';
+      const errorMessage = (error as Error).message;
       errorResponse(res, null, errorMessage, 500);
     }
   }
@@ -90,6 +90,7 @@ class BlogController {
     try {
       const { slug } = req.params;
       const blog = await BlogModel.findOne({ slug });
+      
       if (blog) {
         if (req.file) {
           req.body.image = await fileUpload(req, 'blog');
@@ -105,7 +106,7 @@ class BlogController {
         errorResponse(res, null, 'Blog not found', 404);
       }
     } catch (error) {
-      const errorMessage = 'Error updating blog';
+      const errorMessage = (error as Error).message;
       errorResponse(res, null, errorMessage, 500);
     }
   }

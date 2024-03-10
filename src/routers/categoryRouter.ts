@@ -5,6 +5,7 @@ import {
   getCategory,
   updateCategory,
   changeCategoryStatus,
+  deleteCategory
 } from '../controllers';
 import { isAuthenticated, isAdmin, validate } from '../middlewares';
 import { categoryQuerySchema, categorySchema } from '../schemas';
@@ -37,6 +38,13 @@ categoryRouter.patch(
   isAuthenticated,
   isAdmin,
   changeCategoryStatus,
+);
+
+categoryRouter.delete(
+  '/categories/:id',
+  isAuthenticated,
+  isAdmin,
+  deleteCategory,
 );
 
 export default categoryRouter;

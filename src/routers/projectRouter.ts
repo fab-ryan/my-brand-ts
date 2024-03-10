@@ -29,6 +29,12 @@ projectRouter.patch(
   validate(projectSchema, requestType.body),
   projectController.updateProject,
 );
+projectRouter.patch(
+  '/projects/:id/status',
+  isAuthenticated,
+  isAdmin,
+  projectController.changeProjectStatus,
+);
 
 projectRouter.delete(
   '/projects/:id',

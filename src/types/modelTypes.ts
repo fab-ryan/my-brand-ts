@@ -14,6 +14,7 @@ export interface IModalBlog {
 }
 
 export interface IModalUser {
+  _id?: Types.ObjectId;
   name: string;
   email: string;
   password: string;

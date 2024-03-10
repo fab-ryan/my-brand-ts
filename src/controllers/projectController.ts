@@ -30,7 +30,11 @@ class projectController {
   static async getProject(req: Request, res: Response): Promise<void> {
     try {
       const project = await ProjectModel.findById(req.params.id);
+      if (!project) {
+        errorResponse(res, null, 'Project not found', 404);
+      } else {
       successResponse(res, project, 'Project retrieved successfully', 200);
+      }
     } catch (error) {
       const errorMessages = (error as Error).message;
       errorResponse(res, null, errorMessages, 500);

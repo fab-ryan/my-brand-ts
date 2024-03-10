@@ -29,8 +29,10 @@ class QueryController {
       const query = await QueryModel.findById(req.params.id);
       if (!query) {
         errorResponse(res, null, 'Query not found', 404);
+      }else{
+
+        successResponse(res, query, 'Query retrieved successfully');
       }
-      successResponse(res, query, 'Query retrieved successfully');
     } catch (error) {
       const errorMessage = (error as Error).message;
       errorResponse(res, null, errorMessage, 500);
@@ -53,8 +55,15 @@ class QueryController {
   ): Promise<void> {
     try {
       const query = await QueryModel.findByIdAndDelete(req.params.id);
-      res.json(query);
-    } catch (error) {}
+      if (!query) {
+        errorResponse(res, null, 'Query not found', 404);
+      } else {
+        successResponse(res, null, 'Query deleted successfully');
+      }
+    } catch (error) {
+      const errorMessage = (error as Error).message;
+      errorResponse(res, null, errorMessage, 500);
+    }
   }
 }
 

@@ -21,24 +21,22 @@ export const createLike = async (
     const { slug } = req.params;
     const blog = await BlogModel.findOne({ slug });
     if (!blog) {
-     return  errorResponse(res, null, 'Blog not found', 404);
+      return errorResponse(res, null, 'Blog not found', 404);
+    } else {
+      const userAgent = req.headers['user-agent'];
+      const os = userAgent?.split(/[()]/)[1];
+      const browser = userAgent?.split(/[()]/)[3];
+
+      const newLike = new LikesModel({
+        blog: blog._id,
+        os,
+        browser,
+      });
+      await newLike.save();
+      blog.likes?.push(newLike._id);
+      await blog.save();
+       successResponse(res, newLike, 'Like created', 201);
     }
-    const userAgent = req.headers['user-agent'];
-    const os = userAgent?.split(/[()]/)[1];
-    const browser = userAgent?.split(/[()]/)[3];
-
-    console.log(os, browser, userAgent);
-    const newLike = new LikesModel({
-      blog: blog._id,
-      os,
-      browser,
-    });
-    await newLike.save();
-    blog.likes?.push(newLike._id);
-
-    await blog.save();
-
-    return successResponse(res, newLike, 'Like created', 201);
   } catch (error) {
     const errorMessage = (error as Error).message;
     return errorResponse(res, error, errorMessage, 500);

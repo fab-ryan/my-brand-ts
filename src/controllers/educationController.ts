@@ -26,7 +26,6 @@ class educationController {
     try {
       const status = req.query.status;
       const educations = await EducationModel.find();
-      console.log(status, educations);
       successResponse(res, educations, 'Educations retrieved successfully');
     } catch (error) {
       const errorMessages = (error as Error).message;

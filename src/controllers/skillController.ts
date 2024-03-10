@@ -41,10 +41,15 @@ class skillController {
 
   static async createSkill(req: ISkillBody, res: Response): Promise<void> {
     try {
-      const skill = await SkillModel.create(req.body);
+      const skill = await SkillModel.create({
+        name: req.body.name,
+        percent: req.body.percentage,
+      });
       successResponse(res, skill, 'Skill created successfully', 201);
     } catch (error) {
       const errorMessages = (error as Error).message;
+      console.log(errorMessages);
+
       errorResponse(res, null, errorMessages, 500);
     }
   }
@@ -53,7 +58,10 @@ class skillController {
     try {
       const skill = await SkillModel.findOne({ _id: req.params.id });
       if (skill) {
-        await skill.updateOne(req.body);
+        await skill.updateOne({
+          name: req.body.name ?? skill.name,
+          percent: req.body.percentage ?? skill.percent,
+        });
         successResponse(res, skill, 'Skill updated successfully', 200);
       } else {
         errorResponse(res, null, 'Skill not found', 404);
