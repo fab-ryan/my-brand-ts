@@ -35,4 +35,5 @@ skillRouter.delete(
   skillController.deleteSkill,
 );
 
+skillRouter.patch('/skills/:id/status', skillController.changeSkillStatus);
 export default skillRouter;

@@ -30,7 +30,12 @@ export const getCategory = async (
 ): Promise<void> => {
   try {
     const category = await ProjectCategoryModel.findById(req.params.id);
-    successResponse(res, category, 'Category retrieved successfully', 200);
+    if (!category) {
+      errorResponse(res, null, 'Category not found', 404);
+    }else{
+
+      successResponse(res, category, 'Category retrieved successfully', 200);
+    }
   } catch (error) {
     const errorMessages = (error as Error).message;
     errorResponse(res, null, errorMessages, 500);
@@ -55,7 +60,8 @@ export const updateCategory = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const category = await ProjectCategoryModel.findOne({ _id: req.params.id });
+    const {id } = req.params;
+    const category = await ProjectCategoryModel.findById(id);
     if (category) {
       await category.updateOne(req.body);
       successResponse(res, category, 'Category updated successfully', 201);

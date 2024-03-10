@@ -17,7 +17,7 @@ router.post(
   createComment,
 );
 router.get('/blogs/:slug/comment',  isAuthenticated,isAdmin, getComments);
-router.delete('/comment/:id',  isAuthenticated,isAdmin, deleteComment);
+router.delete('/blogs/:slug/comment/:id',  isAuthenticated,isAdmin, deleteComment);
 router.patch('/comment/:id', isAuthenticated, isAdmin, changeCommentStatus);
 
 export default router;

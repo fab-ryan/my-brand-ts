@@ -71,7 +71,7 @@ export const skillSchema = z.object({
         required_error: 'Skill name is required and should be a string',
         })
         .nonempty(),
-    percent: z
+        percentage: z
         .number({
         required_error: 'Skill percentage is required and should be a number',
         })
