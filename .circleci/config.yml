@@ -9,7 +9,7 @@ workflows:
 jobs:
   build:
     docker:
-      - image: cimg/node:18.18.0
+      - image: cimg/node:16.13.2
     steps:
       - checkout
       - run:
