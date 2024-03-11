@@ -7,7 +7,7 @@
     "test": "jest --coverage --detectOpenHandles --verbose --runInBand",
     "test:watch": "jest --watch --coverage --detectOpenHandles --verbose --runInBand",
     "dev": "nodemon",
-    "start": "npm run build && cross-env NODE_ENV=production node dist/server.js",
+    "start": "node ./dist/server.js",
     "build": "tsc",
     "swagger": "ts-node ./src/swagger/index.ts && node ./src/swagger/index.js"
   },
