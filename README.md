@@ -10,7 +10,7 @@ To get started with this API, follow the steps below:
 1. Clone the repository:
 
 ```bash
-git clone <[API](https://github.com/fab-ryan/my-brand-ts)>
+git clone <https://github.com/fab-ryan/my-brand-ts>
 
 1. stall dependencies:
 npm install
@@ -39,11 +39,9 @@ PRIVATE_KEY=
 ```
 ## Available Routes
 ### Blog Routes
-GET /api/blogs: Get all blogs
-GET /api/blogs/:id: Get a blog by ID
-POST /api/blogs: Create a new blog
-PUT /api/blogs/:id: Update a blog
-DELETE /api/blogs/:id: Delete a blog
+. GET /api/blogs: Get all blogs
+. GET /api/blogs/:id: Get a blog by ID
+. POST /api/blogs: Create a new blog
+. PUT /api/blogs/:id: Update a blog
+. DELETE /api/blogs/:id: Delete a blog
 
-
-Feel free to customize the README further by adding additional sections or details specific to your API. You can include more detailed descriptions of each route, examples of request and response payloads, authentication requirements, and any other relevant information.
