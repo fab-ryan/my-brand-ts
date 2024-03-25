@@ -17,6 +17,11 @@ const LikesSchema: Schema = new Schema(
       required: false,
       default: 'Unknown',
     },
+    ipAddress: {
+      type: String,
+      required: false,
+      default: 'Unknown',
+    },
   },
   {
     timestamps: true,

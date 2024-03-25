@@ -31,6 +31,7 @@ export const loginController = async (req: ILoginRequest, res: Response) => {
     const payload = {
       access_token: token,
       token_type: 'Bearer',
+      role: user.role,
     };
     return successResponse(res, payload, 'Login Successful', 200);
   } catch (error) {

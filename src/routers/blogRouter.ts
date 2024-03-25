@@ -44,4 +44,5 @@ router.get(
   new BlogController().getBlogs,
 );
 
+router.get('/blogs/:slug/relates', new BlogController().getRelatedBlogs);
 export default router;

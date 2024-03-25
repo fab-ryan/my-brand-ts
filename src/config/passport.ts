@@ -27,6 +27,7 @@ export const configurePassport = (passport: PassportStatic) => {
           const UserPayload = {
             id: user?._id,
             email: user?.email,
+            name: user?.name,
             role: user?.role,
           };
           return done(null, UserPayload);

@@ -1,6 +1,9 @@
 import { CommentModel, BlogModel } from '../models';
 import { Request, Response } from 'express';
 import { errorResponse, successResponse } from '../utils';
+import { validate } from '../middlewares';
+import { commentValidation } from '../schemas';
+import { requestType } from '../types';
 
 interface ICommentRequest extends Request {
   body: {
@@ -13,33 +16,52 @@ interface ICommentRequest extends Request {
   };
 }
 
+interface IUser {
+  name: string;
+  email: string;
+}
+
 export const createComment = async (
   req: ICommentRequest,
   res: Response,
 ): Promise<void> => {
   try {
-    const { name, email, comment } = req.body;
+    const UserInfor = {
+      name: '',
+      email: '',
+    };
+    if (!req.user) {
+      const { name, email } = req.body;
+      UserInfor.name = name;
+      UserInfor.email = email;
+    } else {
+      const user = req.user as IUser;
+      UserInfor.name = user.name;
+      UserInfor.email = user.email;
+    }
+
+    const { comment } = req.body;
     const { slug } = req.params;
 
     const blog = await BlogModel.findOne({ slug });
     if (!blog) {
-      errorResponse(res, null, 'Blog not found', 404);
+    return  errorResponse(res, null, 'Blog not found', 404);
     } else {
       const newComment = new CommentModel({
         blog: blog._id,
-        name,
-        email,
+        name: UserInfor.name,
+        email: UserInfor.email,
         comment,
       });
-
       await newComment.save();
       blog.comments.push(newComment._id);
       await blog.save();
-
-      successResponse(res, newComment, 'Comment created', 201);
+     return successResponse(res, newComment, 'Comment created', 201);
     }
   } catch (error) {
-    return errorResponse(res, error, 'Error creating comment', 500);
+    const message = (error as Error).message;
+    console.log('error', error, message);
+    throw errorResponse(res, null, message, 500);
   }
 };
 

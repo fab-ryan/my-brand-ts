@@ -25,12 +25,23 @@ export const createLike = async (
     } else {
       const userAgent = req.headers['user-agent'];
       const os = userAgent?.split(/[()]/)[1];
-      const browser = userAgent?.split(/[()]/)[3];
+      const browser = userAgent?.split(/[()]/)[4];
+      const existingLike = await LikesModel.findOne({
+        blog: blog._id,
+        os,
+        browser,
+        ipAddress: req.ip,
+      });
+
+      if (existingLike) {
+        return errorResponse(res, null, 'You have already liked this blog', 400);
+      }
 
       const newLike = new LikesModel({
         blog: blog._id,
         os,
         browser,
+        ipAddress: req.ip,
       });
       await newLike.save();
       blog.likes?.push(newLike._id);

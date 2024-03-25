@@ -31,7 +31,7 @@ class BlogController {
       successResponse(res, blogs, 'Blogs fetched successfully', 200);
     } catch (error) {
       const errorMessage = (error as Error).message;
-     
+
       errorResponse(res, null, errorMessage, 500);
     }
   }
@@ -50,7 +50,7 @@ class BlogController {
       });
       successResponse(res, blog, 'Blog created successfully', 201);
     } catch (error) {
-      const errorMessage =  (error as Error).message;
+      const errorMessage = (error as Error).message;
       errorResponse(res, null, errorMessage, 500);
     }
   }
@@ -90,7 +90,7 @@ class BlogController {
     try {
       const { slug } = req.params;
       const blog = await BlogModel.findOne({ slug });
-      
+
       if (blog) {
         if (req.file) {
           req.body.image = await fileUpload(req, 'blog');
@@ -134,6 +134,28 @@ class BlogController {
       successResponse(res, activeBlogs, 'Blogs fetched successfully', 200);
     } catch (error) {
       const errorMessage = 'Error getting blogs';
+      errorResponse(res, null, errorMessage, 500);
+    }
+  }
+
+  public async getRelatedBlogs(
+    req: IParamsRequest,
+    res: Response,
+  ): Promise<void> {
+    try {
+      const { slug } = req.params;
+      const blogs = await BlogModel.find().sort({ createdAt: -1 }).limit(5);
+      const activeBlogs = blogs.filter(
+        (blog) => blog.status && blog.slug !== slug,
+      );
+      successResponse(
+        res,
+        activeBlogs,
+        'Related blogs fetched successfully',
+        200,
+      );
+    } catch (error) {
+      const errorMessage = 'Error getting related blogs';
       errorResponse(res, null, errorMessage, 500);
     }
   }

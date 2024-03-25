@@ -11,6 +11,7 @@ import ProjectRouter from './projectRouter';
 import EducationRouter from './educationRouter';
 import SkillRouter from './skillsRouter';
 
+
 const router = Router();
 
 const routes: Router[] = [
@@ -31,6 +32,8 @@ router.use('/api', routes);
 router.get('/', (req: Request, res: Response) => {
   successResponse(res, 'Welcome to the API!👋🏽👋🏽');
 });
+
+
 router.use((req: Request, res: Response) => {
   errorResponse(res, null, 'Route not found', 404);
 });

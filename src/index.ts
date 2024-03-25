@@ -9,13 +9,13 @@ import { configurePassport } from './config';
 import swaggerUi from 'swagger-ui-express';
 import swaggerOutput from './swagger.json';
 
-
-
 const app: Express = express();
 dotenv.config();
 
 app.use(passport.initialize());
 configurePassport(passport);
+
+app.set('trust proxy', 1 ?? true);
 
 app.use(helmet());
 app.use(cors());

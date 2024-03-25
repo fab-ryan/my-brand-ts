@@ -19,7 +19,16 @@ interface IBodyRequest extends Request {
 class projectController {
   static async getProjects(req: Request, res: Response): Promise<void> {
     try {
-      const projects = await ProjectModel.find();
+      const { category, status } = req.query;
+
+      const options = {
+        ...(status !== undefined ? { status } : {}),
+        ...(category && category !== 'all' ? { category: category } : {}),
+      };
+      const projects = await ProjectModel.find(options)
+        .sort({ createdAt: -1 })
+        .exec();
+
       successResponse(res, projects, 'Projects retrieved successfully');
     } catch (error) {
       const errorMessages = (error as Error).message;
@@ -33,7 +42,7 @@ class projectController {
       if (!project) {
         errorResponse(res, null, 'Project not found', 404);
       } else {
-      successResponse(res, project, 'Project retrieved successfully', 200);
+        successResponse(res, project, 'Project retrieved successfully', 200);
       }
     } catch (error) {
       const errorMessages = (error as Error).message;

@@ -105,3 +105,12 @@ export interface IModalEducation {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IModalResume {
+  _id: Types.ObjectId;
+  os: string;
+  browser: string;
+  ip: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
