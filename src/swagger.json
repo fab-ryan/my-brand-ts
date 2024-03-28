@@ -9,10 +9,16 @@
     }
   },
   "servers": [
+    {
+      "url":"https://my-brand-ts-production.up.railway.app/api",
+      "description": "Production server primary server"
+
+    },
      {
       "url": "https://my-brand-d95i.onrender.com/api",
-      "description": "Production server"
+      "description": "Production server alternatives"
     },
+
     {
       "url": "http://localhost:5400/api",
       "description": "Development server"
